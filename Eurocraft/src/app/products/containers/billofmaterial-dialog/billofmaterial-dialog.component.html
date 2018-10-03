@@ -1,0 +1,57 @@
+<form [formGroup]="billOfMaterialForm">
+  <h2 mat-dialog-title>{{pageTitle}}</h2>
+  <mat-dialog-content>
+    <div class="example-container">
+      <mat-form-field>
+        <mat-select id="{{'ProductAssemblyId'}}" formControlName="ProductAssemblyId" placeholder="Product Assembly" (blur)="blur()">
+          <mat-option *ngFor="let productAssembly of productAssemblies" [value]="productAssembly.ProductId">{{productAssembly.ProductName}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="displayMessage.ProductAssemblyId">{{displayMessage.ProductAssemblyId}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select id="{{'ComponentId'}}" formControlName="ComponentId" placeholder="Component" (blur)="blur()">
+          <mat-option *ngFor="let component of components" [value]="component.ProductId">{{component.ProductName}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="displayMessage.ComponentId">{{displayMessage.ComponentId}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Horizontal Qty" formControlName="HorizontalQuantity" [ngClass]="{'is-invalid': displayMessage.HorizontalQuantity }"
+          (blur)="blur()" />
+        <mat-error *ngIf="displayMessage.HorizontalQuantity">{{displayMessage.HorizontalQuantity}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Horizontal Formula" formControlName="HorizontalFormula" [ngClass]="{'is-invalid': displayMessage.HorizontalFormula }"
+          (blur)="blur()" />
+        <mat-error *ngIf="displayMessage.HorizontalFormula">{{displayMessage.HorizontalFormula}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Vertical Qty" formControlName="VerticalQuantity" [ngClass]="{'is-invalid': displayMessage.VerticalQuantity }"
+          (blur)="blur()" />
+        <mat-error *ngIf="displayMessage.VerticalQuantity">{{displayMessage.VerticalQuantity}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Vertical Formula" formControlName="VerticalFormula" [ngClass]="{'is-invalid': displayMessage.VerticalFormula }"
+          (blur)="blur()" />
+        <mat-error *ngIf="displayMessage.VerticalFormula">{{displayMessage.VerticalFormula}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select id="{{'UnitMeasureId'}}" formControlName="UnitMeasureId" placeholder="Unit of Measure" (blur)="blur()">
+          <mat-option *ngFor="let unitMeasure of unitMeasures" [value]="unitMeasure.UnitMeasureId">{{unitMeasure.UnitMeasureName}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="displayMessage.UnitMeasureId">{{displayMessage.UnitMeasureId}}</mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button-color="primary" [disabled]="!billOfMaterialForm.valid" (click)="save()">
+      <mat-icon>save</mat-icon> Save
+    </button>
+    <button mat-button-color="primary" (click)="dismiss()">
+      <mat-icon>cancel</mat-icon> Cancel
+    </button>
+  </mat-dialog-actions>
+  <br/>
+  <div *ngIf="errorMessage$ | async as errorMessage" class="alert alert-danger">
+    Error: {{ errorMessage }}
+  </div>
+</form>

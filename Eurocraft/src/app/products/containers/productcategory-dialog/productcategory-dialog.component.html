@@ -1,0 +1,49 @@
+<form [formGroup]="productCategoryForm">
+  <h2 mat-dialog-title>{{pageTitle}}</h2>
+  <mat-dialog-content>
+    <div class="example-container">
+      <mat-form-field>
+        <input matInput placeholder="Name" formControlName="ProductCategoryName" [ngClass]="{'is-invalid': displayMessage.ProductCategoryName }"
+          (blur)="blur()" />
+        <mat-error *ngIf="displayMessage.ProductCategoryName">{{displayMessage.ProductCategoryName}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select id="{{'ProductTypeId'}}" formControlName="ProductTypeId" placeholder="Product Type" (blur)="blur()">
+          <mat-option *ngFor="let productType of productTypes" [value]="productType.ProductTypeId">{{productType.ProductTypeName}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="displayMessage.ProductTypeId">{{displayMessage.ProductTypeId}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select id="{{'ProductMaterialId'}}" formControlName="ProductMaterialId" placeholder="Product Material"
+          (blur)="blur()">
+          <mat-option *ngFor="let productMaterial of productMaterials" [value]="productMaterial.ProductMaterialId">{{productMaterial.ProductMaterialName}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="displayMessage.ProductMaterialId">{{displayMessage.ProductMaterialId}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select id="{{'ProductModelId'}}" formControlName="ProductModelId" placeholder="Product Model" (blur)="blur()">
+          <mat-option *ngFor="let productModel of productModels" [value]="productModel.ProductModelId">{{productModel.ProductModelName}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="displayMessage.ProductModelId">{{displayMessage.ProductModelId}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select id="{{'ProductUseId'}}" formControlName="ProductUseId" placeholder="Product Use" (blur)="blur()">
+          <mat-option *ngFor="let productUse of productUses" [value]="productUse.ProductUseId">{{productUse.ProductUseName}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="displayMessage.ProductUseId">{{displayMessage.ProductUseId}}</mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button-color="primary" [disabled]="!productCategoryForm.valid" (click)="save()">
+      <mat-icon>save</mat-icon> Save
+    </button>
+    <button mat-button-color="primary" (click)="dismiss()">
+      <mat-icon>cancel</mat-icon> Cancel
+    </button>
+  </mat-dialog-actions>
+  <br />
+  <div *ngIf="errorMessage$ | async as errorMessage" class="alert alert-danger">
+    Error: {{ errorMessage }}
+  </div>
+</form>

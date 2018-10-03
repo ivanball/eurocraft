@@ -1,0 +1,77 @@
+<mat-sidenav-container class="app-sidenav-container" [class.dark-theme]="isDarkTheme">
+    <mat-sidenav #sidenav class="app-sidenav mat-elevation-z10" [opened]="!isScreenSmall()" [mode]="isScreenSmall() ? 'over' : 'side' ">
+        <mat-toolbar color="primary">
+            Toolbar
+        </mat-toolbar>
+        <mat-nav-list>
+            <mat-list-item *ngIf="isLoggedIn()" [routerLink]="['/orders/salesorders',{}]"> Sales Orders </mat-list-item>
+            <mat-list-item *ngIf="isLoggedIn()" [routerLink]="['/purchaseorders',{}]"> Purchase Orders </mat-list-item>
+            <mat-list-item *ngIf="isLoggedIn()" [routerLink]="['/workorders',{}]"> Work Orders </mat-list-item>
+            <mat-list-item *ngIf="isLoggedIn()" [routerLink]="['/productinventory',{}]"> Product Inventory </mat-list-item>
+            <mat-list-item *ngIf="isLoggedIn()" [routerLink]="['/core/dealers',{}]"> Dealers </mat-list-item>
+            <mat-list-item *ngIf="isLoggedIn()" [routerLink]="['/core/vendors',{}]"> Vendors </mat-list-item>
+            <mat-divider></mat-divider>
+        </mat-nav-list>
+        <mat-accordion *ngIf="isLoggedIn()" multi="true">
+            <mat-expansion-panel *ngIf="isAdmin()">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Product Tables
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <mat-list-item [routerLink]="['/products/products',{}]"> Products </mat-list-item>
+                    <mat-list-item [routerLink]="['/products/billofmaterials',{}]"> Bill Of Materials </mat-list-item>
+                    <mat-list-item [routerLink]="['/products/productcategories',{}]"> Product Categories </mat-list-item>
+                    <mat-list-item [routerLink]="['/products/productmaterials',{}]"> Product Materials </mat-list-item>
+                    <mat-list-item [routerLink]="['/products/productmodels',{}]"> Product Models </mat-list-item>
+                    <mat-list-item [routerLink]="['/products/productsubcategories',{}]"> Product Subcategories </mat-list-item>
+                    <mat-list-item [routerLink]="['/products/producttypes',{}]"> Product Types </mat-list-item>
+                    <mat-list-item [routerLink]="['/products/productuses',{}]"> Product Uses </mat-list-item>
+                    <mat-list-item [routerLink]="['/products/productvendors',{}]"> Products by Vendor </mat-list-item>
+                    <mat-list-item [routerLink]="['/products/locations',{}]"> Inventory Location </mat-list-item>
+                    <mat-list-item [routerLink]="['/products/shipmethods',{}]"> Ship method </mat-list-item>
+                    <mat-list-item [routerLink]="['/products/unitmeasures',{}]"> Unit of measure </mat-list-item>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="isAdmin()">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Dealer Tables
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <mat-list-item [routerLink]="['/core/dealertypes',{}]"> Dealer Types </mat-list-item>
+                    <mat-list-item [routerLink]="['/core/paymenttypes',{}]"> Payment Types </mat-list-item>
+                    <mat-list-item [routerLink]="['/core/phonenumbertypes',{}]"> PhoneNumber Types </mat-list-item>
+                    <mat-list-item [routerLink]="['/core/addresstypes',{}]"> Address Types </mat-list-item>
+                    <mat-list-item [routerLink]="['/core/stateprovinces',{}]"> State/Provinces </mat-list-item>
+                    <mat-list-item [routerLink]="['/core/countryregions',{}]"> Country/Regions </mat-list-item>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Reports
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <mat-list-item [routerLink]="['/reports/',{}]"> Cut List </mat-list-item>
+                    <mat-list-item [routerLink]="['/reports/',{}]"> Glass Order </mat-list-item>
+                    <mat-list-item [routerLink]="['/reports/',{}]"> Screen Order </mat-list-item>
+                    <mat-list-item [routerLink]="['/reports/',{}]"> Foil Order </mat-list-item>
+                    <mat-list-item [routerLink]="['/reports/',{}]"> Hardware List </mat-list-item>
+                    <mat-list-item [routerLink]="['/reports/',{}]"> Reinforcement List </mat-list-item>
+                    <mat-list-item [routerLink]="['/reports/',{}]"> Production Document </mat-list-item>
+                </mat-nav-list>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="app-sidenav-content">
+        <app-toolbar (toggleSidenav)="sidenav.toggle()" (toggleTheme)="toggleTheme()"></app-toolbar>
+        <div class="wrapper">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

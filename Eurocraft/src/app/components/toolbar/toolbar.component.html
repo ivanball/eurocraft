@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+  <button mat-button class="sidenav-toggle" (click)="toggleSidenav.emit()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="example-spacer"></span>
+
+  <span>
+    {{ getUserName() }}
+  </span>
+  <span>
+    <button *ngIf="!isLoggedIn()" mat-button (click)="login()">Login</button>
+    <button *ngIf="isLoggedIn()" mat-button (click)="logout()">Logout</button>
+  </span>
+
+  <button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="toggleTheme.emit()">Toggle theme</button>
+  </mat-menu>
+
+</mat-toolbar>

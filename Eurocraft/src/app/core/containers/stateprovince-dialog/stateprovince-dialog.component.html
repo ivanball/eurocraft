@@ -1,0 +1,35 @@
+<form [formGroup]="stateProvinceForm">
+  <h2 mat-dialog-title>{{pageTitle}}</h2>
+  <mat-dialog-content>
+    <div class="example-container">
+      <mat-form-field>
+        <input matInput placeholder="Code" formControlName="StateProvinceCode" [ngClass]="{'is-invalid': displayMessage.StateProvinceCode }"
+          (blur)="blur()" />
+        <mat-error *ngIf="displayMessage.StateProvinceCode">{{displayMessage.StateProvinceCode}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Name" formControlName="StateProvinceName" [ngClass]="{'is-invalid': displayMessage.StateProvinceName }"
+          (blur)="blur()" />
+        <mat-error *ngIf="displayMessage.StateProvinceName">{{displayMessage.StateProvinceName}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select id="{{'CountryRegionId'}}" formControlName="CountryRegionId" placeholder="Country" (blur)="blur()">
+          <mat-option *ngFor="let countryRegion of countryRegions" [value]="countryRegion.CountryRegionId">{{countryRegion.CountryRegionName}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="displayMessage.CountryRegionId">{{displayMessage.CountryRegionId}}</mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button-color="primary" [disabled]="!stateProvinceForm.valid" (click)="save()">
+      <mat-icon>save</mat-icon> Save
+    </button>
+    <button mat-button-color="primary" (click)="dismiss()">
+      <mat-icon>cancel</mat-icon> Cancel
+    </button>
+  </mat-dialog-actions>
+  <br />
+  <div *ngIf="errorMessage$ | async as errorMessage" class="alert alert-danger">
+    Error: {{ errorMessage }}
+  </div>
+</form>

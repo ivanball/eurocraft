@@ -1,0 +1,29 @@
+<form [formGroup]="countryRegionForm">
+  <h2 mat-dialog-title>{{pageTitle}}</h2>
+  <mat-dialog-content>
+    <div class="example-container">
+      <mat-form-field>
+        <input matInput placeholder="Code" formControlName="CountryRegionCode" [ngClass]="{'is-invalid': displayMessage.CountryRegionCode }"
+          (blur)="blur()" />
+        <mat-error *ngIf="displayMessage.CountryRegionCode">{{displayMessage.CountryRegionCode}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Name" formControlName="CountryRegionName" [ngClass]="{'is-invalid': displayMessage.CountryRegionName }"
+          (blur)="blur()" />
+        <mat-error *ngIf="displayMessage.CountryRegionName">{{displayMessage.CountryRegionName}}</mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button-color="primary" [disabled]="!countryRegionForm.valid" (click)="save()">
+      <mat-icon>save</mat-icon> Save
+    </button>
+    <button mat-button-color="primary" (click)="dismiss()">
+      <mat-icon>cancel</mat-icon> Cancel
+    </button>
+  </mat-dialog-actions>
+  <br />
+  <div *ngIf="errorMessage$ | async as errorMessage" class="alert alert-danger">
+    Error: {{ errorMessage }}
+  </div>
+</form>

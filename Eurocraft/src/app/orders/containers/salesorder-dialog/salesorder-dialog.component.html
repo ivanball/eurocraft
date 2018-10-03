@@ -1,0 +1,30 @@
+<form [formGroup]="salesOrderForm">
+  <h2 mat-dialog-title>{{pageTitle}}</h2>
+  <mat-dialog-content>
+    <div class="example-container">
+      <mat-form-field>
+        <input matInput placeholder="Order No" formControlName="SalesOrderNo" [ngClass]="{'is-invalid': displayMessage.SalesOrderNo }"
+          (blur)="blur()" />
+        <mat-error *ngIf="displayMessage.SalesOrderNo">{{displayMessage.SalesOrderNo}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select id="{{'DealerId'}}" formControlName="DealerId" placeholder="Dealer" (blur)="blur()">
+          <mat-option *ngFor="let dealer of dealers" [value]="dealer.BusinessEntityId">{{dealer.DealerName}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="displayMessage.DealerId">{{displayMessage.DealerId}}</mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button-color="primary" [disabled]="!salesOrderForm.valid" (click)="save()">
+      <mat-icon>save</mat-icon> Save
+    </button>
+    <button mat-button-color="primary" (click)="dismiss()">
+      <mat-icon>cancel</mat-icon> Cancel
+    </button>
+  </mat-dialog-actions>
+  <br/>
+  <div *ngIf="errorMessage$ | async as errorMessage" class="alert alert-danger">
+    Error: {{ errorMessage }}
+  </div>
+</form>

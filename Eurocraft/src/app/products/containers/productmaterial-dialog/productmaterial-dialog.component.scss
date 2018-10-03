@@ -1,0 +1,34 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container mat-form-field,input,mat-select {
+  width: 100%;
+}
+
+.button-icon{
+  height:30px;
+  width:30px;
+  align-content: center;
+  padding: 0px;
+}
+
+.alert {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+
+.alert-danger {
+  background-color: #f2dede;
+  border-color: #ebcccc;
+  color: #a94442;
+}
+.alert-danger hr {
+  border-top-color: #e4b9b9; 
+}
+.alert-danger .alert-link {
+  color: #843534; 
+}

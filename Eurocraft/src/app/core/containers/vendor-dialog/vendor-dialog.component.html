@@ -1,0 +1,192 @@
+<form [formGroup]="vendorForm">
+  <h2 mat-dialog-title>{{pageTitle}}</h2>
+  <mat-dialog-content>
+    <div class="example-container">
+      <mat-form-field>
+        <input matInput placeholder="Name" formControlName="VendorName" [ngClass]="{'is-invalid': displayMessage.VendorName }"
+          (blur)="blur()" />
+        <mat-error *ngIf="displayMessage.VendorName">{{displayMessage.VendorName}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Account Number" formControlName="AccountNumber" [ngClass]="{'is-invalid': displayMessage.AccountNumber }"
+          (blur)="blur()" />
+        <mat-error *ngIf="displayMessage.AccountNumber">{{displayMessage.AccountNumber}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Website" formControlName="Website" [ngClass]="{'is-invalid': displayMessage.Website }"
+          (blur)="blur()" />
+        <mat-error *ngIf="displayMessage.Website">{{displayMessage.Website}}</mat-error>
+      </mat-form-field>
+      <mat-checkbox formControlName="IsTaxExempt" labelPosition="before">Tax Exempt?</mat-checkbox>
+      <mat-form-field>
+        <input matInput placeholder="Payment Terms" formControlName="PaymentTerms" [ngClass]="{'is-invalid': displayMessage.PaymentTerms }"
+          (blur)="blur()" />
+        <mat-error *ngIf="displayMessage.PaymentTerms">{{displayMessage.PaymentTerms}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Pricing Level" formControlName="PricingLevel" [ngClass]="{'is-invalid': displayMessage.PricingLevel }"
+          (blur)="blur()" />
+        <mat-error *ngIf="displayMessage.PricingLevel">{{displayMessage.PricingLevel}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Credit Amount" formControlName="CreditAmount" [ngClass]="{'is-invalid': displayMessage.CreditAmount }"
+          (blur)="blurCurrency()" (focus)="focusCurrency()" />
+        <mat-error *ngIf="displayMessage.CreditAmount">{{displayMessage.CreditAmount}}</mat-error>
+      </mat-form-field>
+      <div formGroupName="BusinessEntity">
+        <label>Contacts:
+          <button mat-button-color="primary" class="button-icon" [disabled]="!Contacts.valid" (click)="addContact()"
+            [disabled]="!vendorForm.get('BusinessEntity.Contacts').valid">
+            <mat-icon>add</mat-icon>
+          </button>
+        </label>
+        <div formArrayName="Contacts" *ngFor="let Contact of Contacts.controls; let i=index">
+          <div [formGroupName]="i" [ngClass]="{'has-error': vendorForm.get('BusinessEntity.Contacts').errors }">
+            <div formGroupName="Person">
+              <mat-form-field>
+                <input matInput id="{{'Title_' + i}}" placeholder="Title" formControlName="Title" [ngClass]="{'is-invalid': displayMessage.Title }"
+                  (blur)="blur()" />
+                <mat-error *ngIf="displayMessage.Title">{{displayMessage.Title}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput id="{{'FirstName_' + i}}" placeholder="First Name" formControlName="FirstName" [ngClass]="{'is-invalid': displayMessage.FirstName }"
+                  (blur)="blur()" />
+                <mat-error *ngIf="displayMessage.FirstName">{{displayMessage.FirstName}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput id="{{'MiddleName_' + i}}" placeholder="Middle Name" formControlName="MiddleName" [ngClass]="{'is-invalid': displayMessage.MiddleName }"
+                  (blur)="blur()" />
+                <mat-error *ngIf="displayMessage.MiddleName">{{displayMessage.MiddleName}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput id="{{'LastName_' + i}}" placeholder="Last Name" formControlName="LastName" [ngClass]="{'is-invalid': displayMessage.LastName }"
+                  (blur)="blur()" />
+                <mat-error *ngIf="displayMessage.LastName">{{displayMessage.LastName}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput id="{{'Suffix_' + i}}" placeholder="Suffix" formControlName="Suffix" [ngClass]="{'is-invalid': displayMessage.Suffix }"
+                  (blur)="blur()" />
+                <mat-error *ngIf="displayMessage.Suffix">{{displayMessage.Suffix}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput id="{{'JobTitle_' + i}}" placeholder="Job Title" formControlName="JobTitle" [ngClass]="{'is-invalid': displayMessage.JobTitle }"
+                  (blur)="blur()" />
+                <mat-error *ngIf="displayMessage.JobTitle">{{displayMessage.JobTitle}}</mat-error>
+              </mat-form-field>
+            </div>
+            <button mat-button-color="primary" class="button-icon" (click)="removeContact(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+        <br /><br />
+        <label>Email addresses:
+          <button mat-button-color="primary" class="button-icon" [disabled]="!EmailAddresses.valid" (click)="addEmailAddress()"
+            [disabled]="!vendorForm.get('BusinessEntity.EmailAddresses').valid">
+            <mat-icon>add</mat-icon>
+          </button>
+        </label>
+        <div formArrayName="EmailAddresses" *ngFor="let EmailAddress of EmailAddresses.controls; let i=index">
+          <div [formGroupName]="i" [ngClass]="{'has-error': vendorForm.get('BusinessEntity.EmailAddresses').errors }">
+            <mat-form-field>
+              <input matInput id="{{'EmailAddress_' + i}}" type="email" placeholder="Email" formControlName="EmailAddress"
+                [ngClass]="{'is-invalid': displayMessage.EmailAddress }" (blur)="blur()" />
+              <mat-error *ngIf="displayMessage.EmailAddress">{{displayMessage.EmailAddress}}</mat-error>
+            </mat-form-field>
+            <button mat-button-color="primary" class="button-icon" (click)="removeEmailAddress(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+        <br /><br />
+        <label>Phone numbers:
+          <button mat-button-color="primary" class="button-icon" [disabled]="!PhoneNumbers.valid" (click)="addPhoneNumber()"
+            [disabled]="!vendorForm.get('BusinessEntity.PhoneNumbers').valid">
+            <mat-icon>add</mat-icon>
+          </button>
+        </label>
+        <div formArrayName="PhoneNumbers" *ngFor="let PhoneNumber of PhoneNumbers.controls; let i=index">
+          <div [formGroupName]="i" [ngClass]="{'has-error': vendorForm.get('BusinessEntity.PhoneNumbers').errors }">
+            <mat-form-field>
+              <mat-select id="{{'PhoneNumberTypeId_' + i}}" formControlName="PhoneNumberTypeId" placeholder="PhoneNumber Type"
+                (blur)="blur()">
+                <mat-option *ngFor="let phoneNumberType of phoneNumberTypes" [value]="phoneNumberType.PhoneNumberTypeId">{{phoneNumberType.PhoneNumberTypeName}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="displayMessage.PhoneNumberTypeId">{{displayMessage.PhoneNumberTypeId}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput id="{{'PhoneNumber_' + i}}" placeholder="Phone" formControlName="PhoneNumber" [ngClass]="{'is-invalid': displayMessage.PhoneNumber }"
+                (blur)="blur()" />
+              <mat-error *ngIf="displayMessage.PhoneNumber">{{displayMessage.PhoneNumber}}</mat-error>
+            </mat-form-field>
+            <button mat-button-color="primary" class="button-icon" (click)="removePhoneNumber(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+        <br /><br />
+        <label>Addresses:
+          <button mat-button-color="primary" class="button-icon" [disabled]="!Addresses.valid" (click)="addAddress()"
+            [disabled]="!vendorForm.get('BusinessEntity.Addresses').valid">
+            <mat-icon>add</mat-icon>
+          </button>
+        </label>
+        <div formArrayName="Addresses" *ngFor="let Address of Addresses.controls; let i=index">
+          <div [formGroupName]="i" [ngClass]="{'has-error': vendorForm.get('BusinessEntity.Addresses').errors }">
+            <mat-form-field>
+              <mat-select id="{{'AddressTypeId_' + i}}" formControlName="AddressTypeId" placeholder="Address Type"
+                (blur)="blur()">
+                <mat-option *ngFor="let addressType of addressTypes" [value]="addressType.AddressTypeId">{{addressType.AddressTypeName}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="displayMessage.AddressTypeId">{{displayMessage.AddressTypeId}}</mat-error>
+            </mat-form-field>
+            <div formGroupName="Address">
+              <mat-form-field>
+                <input matInput id="{{'AddressLine1_' + i}}" placeholder="Address Line 1" formControlName="AddressLine1"
+                  [ngClass]="{'is-invalid': displayMessage.AddressLine1 }" (blur)="blur()" />
+                <mat-error *ngIf="displayMessage.AddressLine1">{{displayMessage.AddressLine1}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput id="{{'AddressLine2_' + i}}" placeholder="Address Line 2" formControlName="AddressLine2"
+                  [ngClass]="{'is-invalid': displayMessage.AddressLine2 }" (blur)="blur()" />
+                <mat-error *ngIf="displayMessage.AddressLine2">{{displayMessage.AddressLine2}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput id="{{'AddressCity_' + i}}" placeholder="City" formControlName="AddressCity" [ngClass]="{'is-invalid': displayMessage.AddressCity }"
+                  (blur)="blur()" />
+                <mat-error *ngIf="displayMessage.AddressCity">{{displayMessage.AddressCity}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select id="{{'StateProvinceId_' + i}}" formControlName="StateProvinceId" placeholder="State/Province"
+                  (blur)="blur()">
+                  <mat-option *ngFor="let stateProvince of stateProvinces" [value]="stateProvince.StateProvinceId">{{stateProvince.StateProvinceName}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="displayMessage.StateProvinceId">{{displayMessage.StateProvinceId}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput id="{{'PostalCode_' + i}}" placeholder="Postal Code" formControlName="PostalCode"
+                  [ngClass]="{'is-invalid': displayMessage.PostalCode }" (blur)="blur()" />
+                <mat-error *ngIf="displayMessage.PostalCode">{{displayMessage.PostalCode}}</mat-error>
+              </mat-form-field>
+            </div>
+            <button mat-button-color="primary" class="button-icon" (click)="removeAddress(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button-color="primary" [disabled]="!vendorForm.valid" (click)="save()">
+      <mat-icon>save</mat-icon> Save
+    </button>
+    <button mat-button-color="primary" (click)="dismiss()">
+      <mat-icon>cancel</mat-icon> Cancel
+    </button>
+  </mat-dialog-actions>
+  <br />
+  <div *ngIf="errorMessage$ | async as errorMessage" class="alert alert-danger">
+    Error: {{ errorMessage }}
+  </div>
+</form>
